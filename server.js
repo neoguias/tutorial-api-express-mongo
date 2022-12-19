@@ -86,9 +86,9 @@ async function obtenerGastosViaje(coleccionViajes, coleccionGastos, req, res)
         if (!viaje) throw 'No se ha encontrado el viaje indicado';;
 
 
-        const viajes = await coleccionGastos.find({ viajeId: ObjectId(req.params.viajeId) }).toArray();
+        const gastos = await coleccionGastos.find({ viajeId: ObjectId(req.params.viajeId) }).toArray();
 
-        return res.status(200).json({success: true, viajes});
+        return res.status(200).json({success: true, gastos});
 
     } catch (error) {
         return res.status(400).json({ success: false, error});
