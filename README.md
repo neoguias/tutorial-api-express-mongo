@@ -4,6 +4,16 @@ En este tutorial aprenderás acrear una API con Express y MongoDB. Como ejemplo,
 
 ### [Tutorial](https://www.neoguias.com/tutorial-api-express-mongo/)
 
+## Inicio
+
+Necesitas tener en tu sistema tanto [Node.js](https://www.neoguias.com/instalar-node/) como MongoDB.
+
+Para iniciar el proyecto usa este comando:
+
+```
+node server.js
+```
+
 ## Autor
 
 - [Edu Lázaro](https://edulazaro.com)
