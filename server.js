@@ -47,7 +47,6 @@ async function obtenerViajes(coleccionViajes, req, res)
 async function insertarGastoViaje(coleccionViajes, coleccionGastos, req, res)
 {
     const categorias = ['comida', 'transporte', 'alojamiento', 'otros'];
-    let datos = {}
 
     try {
         if (!ObjectId.isValid(req.params.viajeId)) throw 'El viaje indicado no es válido';;
@@ -55,21 +54,22 @@ async function insertarGastoViaje(coleccionViajes, coleccionGastos, req, res)
         const viaje = await coleccionViajes.findOne(ObjectId(req.params.viajeId));
         if (!viaje) throw 'No se ha encontrado el viaje indicado';
 
-        datos.viajeId = ObjectId(req.params.viajeId);
-
         if (!req.body.hasOwnProperty('descripcion')) throw 'No se ha definido una descripción';
-        datos.descripcion = req.body.descripcion;
         
         if (!req.body.hasOwnProperty('cantidad')) throw 'No se ha definido una cantidad';
-        datos.cantidad = req.body.cantidad;
 
         if (!req.body.hasOwnProperty('categoria') || !categorias.includes(req.body.categoria)) throw 'No se ha definido una categoría váida';
-        datos.categoria = req.body.categoria;
 
         if (!req.body.hasOwnProperty('fecha')) throw 'No se ha definido una fecha';
-        datos.fecha = req.body.fecha;
 
-        await coleccionGastos.insertOne(datos);
+        await coleccionGastos.insertOne({
+            viajeId: ObjectId(req.params.viajeId),
+            descripcion: req.body.descripcion,
+            cantidad: req.body.cantidad,
+            categoria: req.body.categoria,
+            fecha: req.body.fecha
+        });
+    
         return res.status(201).json({ success: true });
         
     } catch (error) {
