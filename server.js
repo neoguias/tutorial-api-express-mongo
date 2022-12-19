@@ -14,18 +14,16 @@ const jsonParser = bodyParser.json();
 
 async function insertarViaje(coleccionViajes, req, res)
 {
-    let error = false;
-    if (!req.body.hasOwnProperty('nombre')) error = 'No se ha definido un nombre';
-    if (error) return res.status(400).json({ success: false, error });
-
     try {
-        await coleccionViajes.insertOne({
-            nombre: req.body.nombre
-        });
+        if (!req.body.hasOwnProperty('nombre')) {
+            throw 'No se ha definido un nombre';
+        }
+
+        await coleccionViajes.insertOne({ nombre: req.body.nombre });
 
         return res.status(201).json({ success: true });
     } catch (error) {
-        return res.status(500).json({ success: false, error});
+        return res.status(400).json({ success: false, error});
     } 
 }
 
